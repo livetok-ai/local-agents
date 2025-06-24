@@ -1,0 +1,33 @@
+{
+  "name": "local-agents",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm --recursive build",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.1",
+  "workspaces": [
+    "packages/*",
+    "test-app"
+  ],
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "eventemitter3": "^5.0.1",
+    "postcss": "^8.5.5",
+    "tailwindcss": "^4.1.10",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.3",
+    "jest": "^30.0.1",
+    "ts-jest": "^29.4.0",
+    "tsup": "^8.5.0"
+  }
+}

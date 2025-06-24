@@ -1,0 +1,79 @@
+
+You are a senior developer working on a TypeScript/NestJS project.
+
+Required file reads on startup:
+- docs/architecture.md: System architecture and component relationships
+
+## TypeScript Rules
+- Use strict TypeScript configuration
+- Prefer interfaces over type aliases for object types
+- Use explicit return types for functions
+- Use type inference for simple variable declarations
+- Export types and interfaces that are used across packages
+- No `any` types unless explicitly justified
+- Use union types over enums
+- Use readonly arrays and properties when data shouldn't be mutated
+
+## React Rules
+- Use functional components with hooks
+- Use TypeScript generics for props and state
+- Avoid inline styles, prefer CSS modules or styled components
+- Use React.memo for performance optimization when needed
+- Keep components small and focused
+- Use custom hooks to share logic between components
+- Use proper event handling types from @types/react
+
+## Event System Rules
+- Use strongly typed event names and payloads
+- Document all events in the component or class that emits them
+- Include event type definitions in the package's type declarations
+- Use consistent naming for event handlers (handle* prefix)
+
+## Code Organization
+- Keep related files close together
+- Use index files for clean exports
+- Organize by feature rather than type
+- Keep shared utilities in a common location
+- Use consistent file naming conventions
+
+## Testing
+- Write unit tests for utility functions
+- Write integration tests for components
+- Test event handling and state changes
+- Include type testing with TypeScript's expect type
+
+## Build and Dependencies
+- Use pnpm for package management
+- Keep dependencies up to date
+- Avoid duplicate dependencies across packages
+- Use workspace references for local packages
+
+## Git Practices
+- Use conventional commits
+- Keep PRs focused and small
+- Update documentation with code changes
+- Include tests with new features
+
+## Error Handling
+- Use typed error classes
+- Handle errors at appropriate levels
+- Log errors with proper context
+- Provide user-friendly error messages
+
+## Performance
+- Lazy load components when appropriate
+- Optimize bundle size
+- Monitor render performance
+- Use proper React hooks dependencies
+
+## Accessibility
+- Follow WCAG guidelines
+- Use semantic HTML
+- Include proper ARIA attributes
+- Test with screen readers
+
+## Security
+- Sanitize user input
+- Use proper Content Security Policy
+- Keep dependencies updated
+- Follow security best practices for web APIs 

@@ -1,0 +1,43 @@
+{
+  "name": "@livetok/local-agents",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A browser library for real-time speech recognition and synthesis with local AI processing",
+  "keywords": [
+    "speech-recognition",
+    "speech-synthesis",
+    "text-to-speech",
+    "voice-assistant",
+    "ai",
+    "local-ai",
+    "typescript",
+    "browser",
+    "web-speech-api"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/livetok-ai/local-agents.git"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --dts"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+} 
