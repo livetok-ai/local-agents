@@ -5,6 +5,7 @@ export interface AgentOptions {
   instructions?: string;
   turnSilenceThreshold?: number;
   voiceName?: string;
+  tools?: any[];
   logger?: (message: string, ...args: any[]) => void;
 }
 
@@ -20,11 +21,12 @@ export class LocalRealTimeAgent extends EventEmitter {
   private speakingPollInterval: ReturnType<typeof setInterval> | null = null;
   private isCurrentlySpeaking: boolean = false;
   private readonly options: AgentOptions;
+  private retries = 0;
 
   constructor(options: AgentOptions = {}) {
     super();
     this.options = options;
-    this.setupLanguageModel();
+    this.options.logger?.('agent constructor');
   }
 
   private async setupLanguageModel(): Promise<void> {
@@ -32,7 +34,26 @@ export class LocalRealTimeAgent extends EventEmitter {
       initialPrompts: [
         {
           role: 'system',
-          content: this.options.instructions || 'You are a helpful and friendly voice assistant. Reply with short answers without formatting and provide helpful information.  Don\'t reply with content that is not related to the question and ask for clarifications if the question is not clear.'
+          content: this.options.instructions || 
+            'You are a helpful and friendly voice assistant. ' +
+            'Reply with short answers without formatting and provide helpful information. ' +
+            'Don\'t reply with content that is not related to the question and ask for clarifications if the question is not clear.',
+        }
+      ],
+      tools: this.options.tools || [
+        {
+          name: "getWeather",
+          description: "Get the weather in a location.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              location: {
+                type: "string",
+                description: "The city to check for the weather condition.",
+              },
+            },
+            required: ["location"],
+          },
         }
       ]
     });
@@ -54,12 +75,11 @@ export class LocalRealTimeAgent extends EventEmitter {
       // Trigger download by calling create
       try {
         await (window as any).LanguageModel.create({
-          initialPrompts: [
-            {
-              role: 'system',
-              content: 'You are a helpful and friendly voice assistant.'
-            }
-          ]
+          monitor(m: any) {
+            m.addEventListener("downloadprogress", (e: any) => {
+              this.options.logger?.(`downloaded ${e.loaded * 100}%`);
+            });
+          }
         });
       } catch (error) {
         // Ignore errors during download trigger
@@ -77,7 +97,6 @@ export class LocalRealTimeAgent extends EventEmitter {
     recognition.lang = 'en-US';
     recognition.onresult = (event: SpeechRecognitionEvent) => {
       // Interruption detected
-      this.options.logger?.('interruption detected');
       window.speechSynthesis.cancel();
       if (this.turnDetectionTimeout) {
         clearTimeout(this.turnDetectionTimeout);
@@ -104,6 +123,12 @@ export class LocalRealTimeAgent extends EventEmitter {
       this.options.logger?.('speech recognition ended', event);
       
       if (this.recognition) {
+        this.retries++;
+        if (this.retries > 10) {
+          this.options.logger?.('speech recognition ended after 3 retries');
+          this.stop();
+          return;
+        }
         // restart it
         this.startRecognition();
       }
@@ -113,7 +138,9 @@ export class LocalRealTimeAgent extends EventEmitter {
   }
 
   start(): void {
+    this.options.logger?.('starting agent');
     try {
+      this.setupLanguageModel();
       this.startRecognition();
       this.startSpeakingPoll();
       this.emit('start');

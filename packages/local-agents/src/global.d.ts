@@ -87,6 +87,7 @@ declare global {
   interface LanguageModelOptions {
     initialPrompts?: PromptMessage[];
     signal?: AbortSignal;
+    tools?: any[];
   }
 
   interface LanguageModel {
