@@ -13,19 +13,22 @@
   "license": "ISC",
   "packageManager": "pnpm@10.11.1",
   "workspaces": [
-    "packages/*",
-    "test-app"
+    "packages/*"
   ],
   "dependencies": {
     "autoprefixer": "^10.4.21",
     "eventemitter3": "^5.0.1",
     "postcss": "^8.5.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "jest": "^30.0.1",
     "ts-jest": "^29.4.0",
     "tsup": "^8.5.0"

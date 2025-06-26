@@ -17,7 +17,7 @@ A TypeScript library that provides real-time speech recognition and synthesis ca
 local-agents/
 ├── packages/
 │   ├── local-agents/     # Main library package
-│   └── test-app/         # React demo application
+│   └── demo/         # React demo application
 ├── package.json          # Root package configuration
 └── README.md            # This file
 ```
@@ -46,10 +46,10 @@ The test app is a React application that demonstrates all the features of the lo
 
 ```bash
 # Start the development server
-pnpm --filter @livetok/test-app dev
+pnpm --filter @livetok/demo dev
 
-# Or navigate to the test-app directory and run
-cd packages/test-app
+# Or navigate to the demo directory and run
+cd packages/demo
 pnpm dev
 ```
 
@@ -63,7 +63,7 @@ pnpm build
 
 # Build specific package
 pnpm --filter @livetok/local-agents build
-pnpm --filter @livetok/test-app build
+pnpm --filter @livetok/demo build
 ```
 
 ### Testing
@@ -150,7 +150,7 @@ interface AgentOptions {
 
 The test app provides a complete demonstration of the library's capabilities:
 
-1. **Start the test app**: `pnpm --filter @livetok/test-app dev`
+1. **Start the test app**: `pnpm --filter @livetok/demo dev`
 2. **Open your browser** to the provided URL
 3. **Grant microphone permissions** when prompted
 4. **Click "Start"** to begin speech recognition
